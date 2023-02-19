@@ -1,0 +1,59 @@
+{% if item %}
+    <div class="product mb-6 flex pr-6" id="cart-item-{{ item.product.id }}">
+        <a href="#" class="w-1/4">
+            <img class="hover:shadow-lg rounded-xl" src="{{ item.product.get_thumbnail }}">
+        </a>
+
+        <div class="w-3/4 pl-6">
+            <div class="flex justify-between">
+                <a href="#" class="text-lg">{{ item.product.name }}</a>
+
+                <span class="mb-6 pt-1 text-gray-400">${{ item.total_price }}</span>
+            </div>
+
+            <hr>
+
+            <div class="quantity mt-6 flex items-center space-x-4">
+                <button 
+                    class="p-3 bg-gray-100 rounded-xl"
+                    hx-get="{% url 'update_cart' item.product.id 'decrement' %}"
+                    hx-target="#cart-item-{{ item.product.id }}"
+                    hx-swap="outerHTML"
+                >
+                    -
+                </button>
+
+                <span>{{ item.quantity }}</span>
+
+                <button 
+                    class="p-3 bg-gray-100 rounded-xl"
+                    hx-get="{% url 'update_cart' item.product.id 'increment' %}"
+                    hx-target="#cart-item-{{ item.product.id }}"
+                    hx-swap="outerHTML"
+                >
+                    +
+                </button>
+            
+                <div class="w-full pl-6">
+                    <div class="flex justify-between">
+
+                        <span class="mb-6 pt-1 text-gray-400"></span>
+
+                        <button class="flex justify-between"
+                                hx-get="{% url 'update_cart' item.product.id 'trash' %}"
+                                hx-target="#cart-item-{{ item.product.id }}"
+                                hx-swap="outerHTML"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                            </svg>
+                            
+
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endif %}

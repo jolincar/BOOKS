@@ -2,6 +2,7 @@ from django.urls import path
 
 from cartt.views import add_to_cart, cart, checkout, hx_menu_cart, update_cart, hx_cart_total, success
 
+
 urlpatterns = [
     path('', cart, name='cart'),
     path('checkout/', checkout, name='checkout'),

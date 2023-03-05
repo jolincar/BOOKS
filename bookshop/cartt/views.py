@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.conf import settings
 
+
 from .cart import Cart
 
 from product.models import Product
@@ -47,16 +48,13 @@ def update_cart(request, product_id, action):
         item = None
 
     if action == 'trash':
+        cart.add(product_id, -quantity, True)
         item = None
-
 
     response = render(request, 'cart/partials/cart_item.html', {'item': item})
     response['HX-Trigger'] = 'update-menu-cart'
 
     return response
-
-    #when response triggers it goes into base.html that will trigger update-menu-cart
-    #which will call the top url and get the html
 
 @login_required
 def checkout(request):

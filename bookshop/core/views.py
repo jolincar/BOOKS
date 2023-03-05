@@ -118,7 +118,6 @@ def shop(request):
     if query:
         products = products.filter(status=Product.ACTIVE).filter(Q(name__icontains=query) | Q(description__icontains=query) | Q(author__icontains=query) | Q(isbn13__icontains=query))
 
-
     context = {
         'categories': categories,
         'products': products,

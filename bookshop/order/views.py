@@ -2,9 +2,9 @@ import json
 import stripe
 from django.conf import settings
 from django.http import JsonResponse
-from cartt.cart import Cart
-from .models import Order, OrderItem
 
+from .models import Order, OrderItem
+from cartt.cart import Cart
 
 # Create your views here.
 
@@ -14,7 +14,6 @@ def start_order(request):
     total_price = 0
 
     items = []
-
     for item in cart:
         product = item['product']
         total_price += product.price * int(item['quantity'])
@@ -35,10 +34,12 @@ def start_order(request):
         payment_method_types=['card'],
         line_items=items,
         mode='payment',
-        success_url='http://127.0.0.1:8000/cart/success/',
+        success_url='http://127.0.0.1:8000/cart/success',
         cancel_url='http://127.0.0.1:8000/cart/'
     )
+
     payment_intent = session.payment_intent
+
 
     order = Order.objects.create(
         user=request.user, 
@@ -49,10 +50,9 @@ def start_order(request):
         address=data['address'], 
         zipcode=data['zipcode'], 
         place=data['place'],
-        #payment_intent = payment_intent,
-        paid = True,
-        paid_amount = total_price
-    )
+        payment_intent = payment_intent,
+        paid=True,
+        paid_amount = total_price,)
 
 
     for item in cart:

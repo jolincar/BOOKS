@@ -47,9 +47,7 @@ def update_cart(request, product_id, action):
         item = None
 
     if action == 'trash':
-        cart.add(product_id, -quantity, True)
         item = None
-
 
     response = render(request, 'cart/partials/cart_item.html', {'item': item})
     response['HX-Trigger'] = 'update-menu-cart'

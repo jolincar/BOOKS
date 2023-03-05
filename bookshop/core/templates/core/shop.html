@@ -38,8 +38,8 @@
 
         <form method="get" action=".">
             <div class="flex ">
-                <input type="text" name="query" class="p-4 bg-gray-100 border-0" placeholder="Search...">             
-
+               <input type="text" name="query" class="p-4 bg-gray-100 border-0" placeholder="Search...">
+            
                 <button class="p-4 bg-gray-100 border-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -61,22 +61,16 @@
     </div>
 
     <div class="products w-full lg:w-3/4 -mt-4 flex items-center flex-wrap">
-        {% if products %}
-            {% for product in products %}
 
-                {% include 'product/partials/product_list_item.html' %}
+        {% for product in products %}
 
-            {% endfor %}
+            {% include 'product/partials/product_list_item.html' %}
 
-        {% else %}
-
-            <div class="max-w-6xl mx-auto flex py-6 px-6 xl:px-0">
-                <p>No products found.</p>
-            </div>
-
-        {% endif %}
+        {% endfor %}
         
     </div>
 </div>
+
+
 
 {% endblock %}

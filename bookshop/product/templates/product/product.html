@@ -15,12 +15,28 @@
     <div class="information w-full lg:w-2/5 lg:p-6">
         <h1 class="text-2xl">{{ product.name }}</h1>
 
+        <p class="mt-1 text-gray-400">{{ product.category }}</p>
+
+        <p class="mt-1 text-gray-400">ISBN13: {{ product.isbn13 }}</p>
+
         <p class="mt-1 text-gray-400">${{ product.get_display_price }}</p>
 
         {% if product.description %}
         <p class="mt-6 text-gray-700">{{ product.description }}</p>
         {% endif %}
 
+        {% if user.is_superuser %}
+    
+            <a 
+                href="{% url 'edit_product' product.id %}"
+                class="mt-6 inline-block px-8 py-4 rounded-xl bg-blue-500 text-white hover:bg-blue-700"
+            >
+
+                Edit Product
+
+            </a>
+
+        {% elif request.user.is_authenticated %}
         <a href="#" class="mt-6 inline-block px-8 py-4 rounded-xl bg-blue-500 text-white hover:bg-blue-700"
             hx-get="{% url 'add_to_cart' product.id %}"
             hx-target="#menu-cart-button"
@@ -30,8 +46,20 @@
             Add to Cart
             
         </a>
+        {% else %}
+        <div align="middle" class="py-6 px-6 xl:px-0">
+            
+              <h1>Please log in to add to cart.</h1>
+        
+              <a 
+              href="{% url 'login' %}"
+              class="inline-block mt-4 px-8 py-4 rounded-xl bg-blue-500 hover:bg-blue-700 text-white"
+              >
+                Log in
+              </a> 
+        </div>
+        {% endif %}
     </div>
 </div>
-
 
 {% endblock %}

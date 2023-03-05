@@ -3,7 +3,11 @@
 {% block title %}Cart{% endblock %}
 
 {% block content %}
+
+{% if request.user.is_authenticated %}
+
 <div class="max-w-6xl mx-auto flex flex-wrap items-start py-6 px-6 xl:px-0">
+
     <div class="products w-full lg:w-3/4">
         {% for item in cart %}
             {% include 'cart/partials/cart_item.html' %}
@@ -26,8 +30,27 @@
 
         <a href="{% url 'checkout' %}" class="inline-block px-8 py-4 rounded-xl bg-blue-500 hover:bg-blue-700 text-white">Checkout</a>
     </div>
+
 </div>
+    {% else %}
 
+    <div align="middle" class="py-6 px-6 xl:px-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+        </svg>
+        
+          <h1 style="font-size:30px" class="m-3 text-xl uppercase">You are not logged in.</h1>
+          <h1>Please log in to view cart.</h1>
+    
+          <a 
+          href="{% url 'login' %}"
+          class="inline-block mt-4 px-8 py-4 rounded-xl bg-blue-500 hover:bg-blue-700 text-white"
+          >
+            Log in
+          </a> 
+    </div>
 
+{% endif %}
 
 {% endblock %}
